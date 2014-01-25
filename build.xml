@@ -18,7 +18,9 @@
 
     <target name="compile-test" depends="init">
         <javac srcdir="${test.dir}" destdir="${testClasses.dir}"
-               classpath="${testLib.dir}/junit-4.10.jar;${externalLib.dir}/mariadb-java-client-1.1.5.jar" includeantruntime="false"/>
+               classpath="${testLib.dir}/junit-4.10.jar;${externalLib.dir}/mariadb-java-client-1.1.5.jar"
+               debug="true"
+               includeantruntime="false"/>
     </target>
 
     <target name="run-test" depends="compile-test">
