@@ -1,0 +1,40 @@
+<project name="expression-evaluator" default="run-test">
+
+    <property file="build.properties"/>
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="init">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${testClasses.dir}"/>
+        <mkdir dir="${mainLib.dir}"/>
+        <mkdir dir="${testLib.dir}"/>
+        <copy file="externalLib/junit-4.10.jar" todir="${testLib.dir}"/>
+        <mkdir dir="${externalLib.dir}"/>
+        <copy file="externalLib/mariadb-java-client-1.1.5.jar" todir="${externalLib.dir}"/>
+    </target>
+
+    <target name="compile-test" depends="init">
+        <javac srcdir="${test.dir}" destdir="${testClasses.dir}"
+               classpath="${testLib.dir}/junit-4.10.jar;${externalLib.dir}/mariadb-java-client-1.1.5.jar" includeantruntime="false"/>
+    </target>
+
+    <target name="run-test" depends="compile-test">
+        <junit haltonfailure="yes">
+            <classpath>
+                <pathelement location="${testClasses.dir}" />
+                <pathelement location="${externalLib.dir}/mariadb-java-client-1.1.5.jar" />
+                <pathelement location="${testLib.dir}/junit-4.10.jar"/>
+            </classpath>
+            <batchtest>
+                <fileset dir="${test.dir}">
+                    <include name="**/*Test*" />
+                </fileset>
+            </batchtest>
+            <formatter type = "brief" usefile = "false"/>
+        </junit>
+    </target>
+
+</project>

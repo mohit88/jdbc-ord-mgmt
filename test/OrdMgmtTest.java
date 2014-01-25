@@ -27,5 +27,4 @@ public class OrdMgmtTest {
         Assert.assertEquals(0,stmt.executeUpdate(sql));
     }
 
-
 }
